@@ -1,0 +1,2 @@
+module RandomgeneratorsControllerHelper
+end

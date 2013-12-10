@@ -1,0 +1,41 @@
+class RandomgeneratorsController < ApplicationController
+  def show
+    query = params[:query] # retrieve verse ID from URI route
+    @verse = Verse.find(query) # look up verse by unique ID
+    # will render app/views/verses/show.<extension> by default
+  end
+
+  def index
+    @verse = Verse.all
+  end
+
+  def new
+    # default: render 'new' template
+  end
+
+  def create
+    @verse = Verse.create!(params[:verse])
+    flash[:notice] = "#{@verse.title} was successfully created."
+    redirect_to verses_path
+  end
+
+  def edit
+    @verse = Verse.find params[:query]
+  end
+
+  def update
+    @verse = Verse.find params[:query]
+    @verse.update_attributes!(params[:verse])
+    flash[:notice] = "#{@verse.title} was successfully updated."
+    redirect_to verse_path(@verse)
+  end
+
+  def destroy
+    @verse = Verse.find(params[:query])
+    @verse.destroy
+    flash[:notice] = "Verse '#{@verse.title}' deleted."
+    redirect_to verses_path
+  end
+
+
+end
